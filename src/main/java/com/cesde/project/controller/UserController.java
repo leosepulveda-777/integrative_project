@@ -70,4 +70,22 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+
+  @PostMapping
+  @Operation(summary = "Create a new user", description = "Create a new user with the provided details")
+  @ApiResponses(value = {
+    @ApiResponse(responseCode = "201", description = "User created successfully"),
+    @ApiResponse(responseCode = "400", description = "Invalid input data"),
+    @ApiResponse(responseCode = "500", description = "Internal server error")
+  })
+  public ResponseEntity<UserDTO> createUser(@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Body for the create a user", required = true) @Valid @RequestBody UserDTO userDTO) {
+    try {
+      UserDTO createdUser = userService.createUser(userDTO);
+      return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    } catch (RuntimeException e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+  }
 }
