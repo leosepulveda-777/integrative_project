@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,16 +16,16 @@ import java.util.stream.Collectors;
  * UserService - Contiene la logica de negocio para gestionar usuarios
  *
  * @Service: Indica que esta clase es un servicio de Spring (componente de negocio)
- * Aqui implementamos la logica de negocio, validaciones, reglas, etc.
+ * Aquí implementamos la logica de negocio, validaciones, reglas, etc.
  */
 @Service
 public class UserService {
-  // Inyeccion de dependencia - Spring nos da una instancia del repositorio
+  // Inyección de dependencia - Spring nos da una instancia del repositorio
   @Autowired
   private UserRepository userRepository;
 
   // ========================================
-  // METODOS BASICOS CRUD
+  // MÉTODOS BÁSICOS CRUD
   // ========================================
 
   /**
@@ -43,14 +42,14 @@ public class UserService {
    * Obtener todos los usuarios con paginacion y convertirlos a DTOs
    * Gracias a JpaRepository, tenemos paginacion automatica.
    */
-  public Page<UserDTO> getAllUsers(Pageable pegeable) {
-    Page<User> users = userRepository.findAll(pegeable);
+  public Page<UserDTO> getAllUsers(Pageable pageable) {
+    Page<User> users = userRepository.findAll(pageable);
 
     // Convertir User a List<UserDTO> usando Stream API
     List<UserDTO> userDTOs = users.getContent().stream().map(UserDTO::fromEntity).collect(Collectors.toList());
 
     // Convertir List<UserDTO> a Page<UserDTO>
-    return new PageImpl<>(userDTOs, pegeable, users.getTotalElements());
+    return new PageImpl<>(userDTOs, pageable, users.getTotalElements());
   }
 
   /**
@@ -90,7 +89,7 @@ public class UserService {
   public UserDTO updateUser(Long id, UserDTO userDTO) {
     Optional<User> existingUser = userRepository.findById(id);
 
-    if (!existingUser.isPresent()) {
+    if (existingUser.isEmpty()) {
       throw new RuntimeException("User not found with id: " + id);
     }
 
@@ -119,6 +118,6 @@ public class UserService {
   }
 
   // ========================================
-  // METODOS DE BUSQUEDA PERSONALIZADA
+  // MÉTODOS DE BÚSQUEDA PERSONALIZADA
   // ========================================
 }

@@ -20,23 +20,23 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremental
   private Long id;
 
-  // Nombre del usuario (obligatorio, no puede estar vacio)
+  // Nombre del usuario (obligatorio, no puede estar vacío)
   @NotBlank(message = "First name is mandatory")
   @Column(name = "first_name", nullable = false, length = 50)
   private String firstName;
 
-  // Apellido del usuario (obligatorio, no puede estar vacio)
+  // Apellido del usuario (obligatorio, no puede estar vacío)
   @NotBlank(message = "Last name is mandatory")
   @Column(name = "last_name", nullable = false, length = 50)
   private String lastName;
 
-  // Email del usuario (obligatorio, no puede estar vacio, debe ser unico y valido)
+  // Email del usuario (obligatorio, no puede estar vacío, debe ser único y válido)
   @NotBlank(message = "Email is mandatory")
   @Email(message = "Email should be valid")
   @Column(name = "email", nullable = false, unique = true, length = 100)
   private String email;
 
-  // Telefono del usuario (opcional)
+  // Teléfono del usuario (opcional)
   @Column(name = "phone", length = 15)
   private String phone;
 
@@ -44,7 +44,7 @@ public class User {
   @Column(name = "created_at", nullable = false, updatable = false)
   private LocalDateTime createdAt;
 
-  // Fecha de ultima actualización del usuario (no puede ser nulo)
+  // Fecha de última actualización del usuario (no puede ser nulo)
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
 
@@ -61,14 +61,14 @@ public class User {
     this.updatedAt = LocalDateTime.now();
   }
 
-  // Metodo que se ejecuta antes de guardar un nuevo usuario
+  // Método que se ejecuta antes de guardar un nuevo usuario
   @PrePersist
   protected void onCreate() {
     this.createdAt = LocalDateTime.now();
     this.updatedAt = LocalDateTime.now();
   }
 
-  // Metodo que se ejecuta antes de actualizar un usuario existente
+  // Método que se ejecuta antes de actualizar un usuario existente
   @PreUpdate
   protected void onUpdate() {
     this.updatedAt = LocalDateTime.now();
