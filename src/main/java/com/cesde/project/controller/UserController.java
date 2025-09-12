@@ -85,4 +85,30 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
   }
+
+
+@PutMapping("/{id}")
+@Operation(summary = "Actualiza un usuario existente", description = "Actualiza un usuario con todos los datos")
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Usuario actualizado correctamente"),
+    @ApiResponse(responseCode = "404", description = "El usuario no se encuentra o no existe"),
+    @ApiResponse(responseCode = "400", description = "Email existente o datos inválidos")
+})
+
+public ResponseEntity<UserDTO> userPut(
+        @PathVariable Long id,
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Cuerpo para actualizar usuarios")
+        @RequestBody UserDTO userDTO) {
+    try {
+        UserDTO userPut = userService.updateUser(id, userDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(userPut);
+    } catch (RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+  }
+
 }
+ 
+
