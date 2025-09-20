@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * UserRepository - Interfaz para acceder a los datos de usuarios
  * 
- * ✅ Usamos JpaRepository porque nos da:
+ * Usamos JpaRepository porque nos da:
  * - Métodos CRUD básicos: save(), findById(), findAll(), deleteById()
  * - Operaciones en lote: saveAll(), deleteAllInBatch()
  * - Paginación automática: findAll(Pageable)
