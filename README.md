@@ -30,3 +30,8 @@ al entrar en el tag , sigues en el orden habitual src/main/java/com/cesde/projec
 veras el apartado "task+el esquema que se necesite revisar" eje "TaskService"
 
 
+
+http://localhost:8080/tasks
+
+
+
