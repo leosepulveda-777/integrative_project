@@ -28,3 +28,5 @@ JWT_SECRET=secreto123
 #2 parte 
 al entrar en el tag , sigues en el orden habitual src/main/java/com/cesde/project y vas a encontrar todas la estrucuta (model,service,controller,dto,repository) al entrar ahí
 veras el apartado "task+el esquema que se necesite revisar" eje "TaskService"
+
+
